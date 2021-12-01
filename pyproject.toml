@@ -9,6 +9,9 @@ python = "^3.8"
 Flask = "^2.0.2"
 pylint = "^2.12.1"
 invoke = "^1.6.0"
+Flask-SQLAlchemy = "^2.5.1"
+psycopg2 = "^2.9.2"
+python-dotenv = "^0.19.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
