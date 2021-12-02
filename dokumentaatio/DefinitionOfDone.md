@@ -1,4 +1,4 @@
-### Definition of done 
+## Definition of Done 
 
 Sitoudumme noudattamaan tätä ohjetta, joka määrittää milloin ominaisuuden voi todeta valmiiksi  
 
