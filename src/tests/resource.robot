@@ -1,12 +1,18 @@
 *** Settings ***
+Library  SeleniumLibrary
+Library  ../AppLibrary.py
 
+*** Variables ***
+${SERVER}  localhost:5000
+${BROWSER}  chrome
+${DELAY}  0.5 seconds
+${HOME URL}  http://${SERVER}
 
 *** Keywords ***
-Input Login Command
-    Input  login
+Open And Configure Browser
+    Open Browser  browser=${BROWSER}
+    Maximize Browser Window
+    Set Selenium Speed  ${DELAY}
 
-Input Credentials
-    [Arguments]  ${username}  ${password}
-    Input  ${username}
-    Input  ${password}
-    Run Application
+Main Page Should Be Open
+    Title Should Be  Lukuvinkkikirjasto
