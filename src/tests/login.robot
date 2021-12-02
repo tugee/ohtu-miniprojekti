@@ -1,21 +1,26 @@
 *** Settings ***
 Resource  resource.robot
-Test Setup  Register With Username And Password
+Suite Setup  Open And Configure Browser
+Suite Teardown  Close Browser
 
 *** Test Cases ***
 Login With Correct Credentials
-    Input Credentials  tolkien Tolkien22
-    Output Should Contain  Logged in
-
-Login With Incorrect Password
-    Input Credentials  tolkien Tolkien
-    Output Should Contain  error
-
-Login With Nonexistent Username
-    Input Credentials  tkien Tolkien22
-    Output Should Contain  error
+    Set Username  testikayttaja
+    Set Password  testisalasana
+    Submit Credentials
+    Login Should Succeed
 
 *** Keywords ***
-Register With Username And Password
-    Create User  tolkien Tolkien22
-    Input Login Command
+Login Should Succeed
+    Main Page Should Be Open
+
+Submit Credentials
+    Click Button  submit
+
+Set Username
+    [Arguments]  ${username}
+    Input Text  username  ${username}
+
+Set Password
+    [Arguments]  ${password}
+    Input Password  password  ${password}
