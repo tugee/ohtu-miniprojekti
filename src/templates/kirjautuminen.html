@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<title>Lukuvinkkikirjasto kirjautuminen</title>
+{% if session.username %}
+<p>Tervetuloa {{ session.username }}</p>
+<a href="/logout">Kirjaudu ulos</a>
+{% else %}
+<form action="/login" method="POST">
+<p>Käyttäjänimi:<br>
+<input type="text" name="username"></p>
+<p>Salasana:<br>
+<input type="password" name="password"></p>
+<input type="submit" value="Kirjaudu">
+</form>
+{% endif %}
