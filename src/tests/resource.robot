@@ -21,5 +21,8 @@ Main Page Should Be Open
 Login Page Should Be Open
     Title Should Be  Lukuvinkkikirjasto kirjautuminen
 
+Go To Main Page
+    Go To  ${HOME URL}
+
 Go To Login Page
     Go To  ${LOGIN URL}

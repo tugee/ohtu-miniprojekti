@@ -2,6 +2,7 @@
 Resource  resource.robot
 Suite Setup  Open And Configure Browser
 Suite Teardown  Close Browser
+Test Setup  Go To Login Page
 
 *** Test Cases ***
 Login With Correct Credentials
@@ -15,7 +16,7 @@ Login Should Succeed
     Main Page Should Be Open
 
 Submit Credentials
-    Click Button  submit
+    Submit Form
 
 Set Username
     [Arguments]  ${username}

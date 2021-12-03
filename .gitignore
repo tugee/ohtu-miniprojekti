@@ -1,5 +1,5 @@
-src/.env
-src/__pycache__/
+.env
+__pycache__/
 selenium-screenshot-*.png
 output.xml
 log.html
