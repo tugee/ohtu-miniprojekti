@@ -19,7 +19,7 @@ def donewuser():
     hash_value = generate_password_hash(password)
     db.session.execute(sql, {"tunnus": username, "salasana": hash_value})
     db.session.commit()
-    return redirect("/kirjautuminen.html")
+    return redirect("/kirjautuminen")
 
 @app.route("/register")
 def register():
