@@ -23,7 +23,7 @@ def donewuser():
 
 @app.route("/register")
 def register():
-    return render_template("donewuser.html")
+    return render_template("register.html")
 
 @app.route("/kirjautuminen")
 def kirjautuminen():
