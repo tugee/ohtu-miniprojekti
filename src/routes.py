@@ -35,7 +35,7 @@ def login():
     if not kayttaja:
         return redirect("/kirjautuminen")
     else:
-        if password != kayttaja.password:
+        if password != kayttaja.salasana:
             return redirect("/kirjautuminen")
     session["username"] = username
     return redirect("/kirjautuminen")
