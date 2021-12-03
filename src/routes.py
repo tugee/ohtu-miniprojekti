@@ -21,7 +21,7 @@ def newUser():
     db.session.commit()
     return redirect("/kirjautuminen.html")
 
-@app.route("/register", methods=["POST"])
+@app.route("/register")
 def donewuser():
     return render_template("donewuser.html")
 
