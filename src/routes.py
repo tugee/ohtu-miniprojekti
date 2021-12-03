@@ -11,8 +11,8 @@ def index():
     testi = ekarivi.tunnus
     return render_template("index.html", testi=testi)
 
-@app.route("/newUser", methods=["POST"])
-def newUser():
+@app.route("/donewuser", methods=["POST"])
+def donewuser():
     username = request.form["username"]
     password = request.form["password"]
     sql = "INSERT INTO kayttajat (tunnus,salasana) VALUES (:username,:password)"
@@ -20,6 +20,10 @@ def newUser():
     db.session.execute(sql, {"tunnus": username, "salasana": hash_value})
     db.session.commit()
     return redirect("/kirjautuminen")
+
+@app.route("/register")
+def register():
+    return render_template("register.html")
 
 @app.route("/kirjautuminen")
 def kirjautuminen():
