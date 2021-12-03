@@ -12,7 +12,7 @@ def index():
     return render_template("index.html", testi=testi)
 
 @app.route("/donewuser", methods=["POST"])
-def newUser():
+def donewuser():
     username = request.form["username"]
     password = request.form["password"]
     sql = "INSERT INTO kayttajat (tunnus,salasana) VALUES (:username,:password)"
@@ -22,7 +22,7 @@ def newUser():
     return redirect("/kirjautuminen.html")
 
 @app.route("/register")
-def donewuser():
+def register():
     return render_template("donewuser.html")
 
 @app.route("/kirjautuminen")
