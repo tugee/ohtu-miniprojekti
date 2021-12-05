@@ -1,11 +1,10 @@
 *** Settings ***
 Library  SeleniumLibrary
-Library  ../AppLibrary.py
 
 *** Variables ***
 ${SERVER}  localhost:5000
 ${BROWSER}  chrome
-${DELAY}  0.5 seconds
+${DELAY}  0 seconds
 ${HOME URL}  http://${SERVER}
 ${LOGIN URL}  http://${SERVER}/kirjautuminen
 
