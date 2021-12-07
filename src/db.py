@@ -1,6 +1,6 @@
-from app import app
-from flask_sqlalchemy import SQLAlchemy
 from os import getenv
+from flask_sqlalchemy import SQLAlchemy
+from app import app
 
 uri = getenv("DATABASE_URL")
 app.secret_key = getenv("SECRET_KEY")

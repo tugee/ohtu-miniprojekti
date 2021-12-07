@@ -1,6 +1,7 @@
-from flask.wrappers import Request
+from flask import (
+    render_template, redirect, session, request
+)
 from app import app
-from flask import render_template, redirect, session, request
 from services.user_service import user_service
 
 @app.route("/")
@@ -31,7 +32,7 @@ def login():
         session["username"] = username
     return redirect("/kirjautuminen")
 
-@app.route("/logout")   
+@app.route("/logout")
 def logout():
     del session["username"]
     return redirect("/kirjautuminen")
