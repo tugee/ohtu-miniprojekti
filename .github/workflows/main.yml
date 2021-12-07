@@ -16,7 +16,14 @@ jobs:
         image: postgres
         # Provide the password for postgres
         env:
-          POSTGRES_PASSWORD: postgres
+          # optional (defaults to `postgres`)
+          POSTGRES_DB: postgres_db
+          # required
+          POSTGRES_PASSWORD: postgres_password
+          # optional (defaults to `5432`)
+          POSTGRES_PORT: 5432
+          # optional (defaults to `postgres`)
+          POSTGRES_USER: postgres_user
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
@@ -36,16 +43,12 @@ jobs:
         run: pip install poetry
       - name: Install dependencies
         run: poetry install
-      - name: Connect to PostgreSQL
-        # Runs a script that creates a PostgreSQL table, populates
-        # the table with data, and then retrieves the data.
-        run: psql < src/schema.sql
-        # Environment variables used by the `client.js` script to create a new PostgreSQL table.
+      - name: Query database
+        run: psql -h postgres -d postgres_db -U postgres_user -c 'SELECT 1;'
         env:
-          # The hostname used to communicate with the PostgreSQL service container
-          POSTGRES_HOST: postgres
-          # The default PostgreSQL port
-          POSTGRES_PORT: 5432
+          # postgress password is required; alternatively, you can run:
+          # `PGPASSWORD=postgres_password psql ...`
+          PGPASSWORD: postgres_password
       - name: Run tests
         run: poetry run coverage run --branch -m pytest
       - name: Coverage report
