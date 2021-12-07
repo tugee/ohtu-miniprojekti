@@ -44,5 +44,5 @@ jobs:
       - name: Run robot tests
         run: bash run_robot_tests.sh
         env:
-          DATABASE_URL: postgresql://tester:T0lk13n@localhost:5432/testingtable
+          DATABASE_URL: postgresql://localhost
 
