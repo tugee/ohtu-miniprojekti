@@ -43,12 +43,17 @@ jobs:
         run: pip install poetry
       - name: Install dependencies
         run: poetry install
-      - name: Query database
-        run: psql -h postgres -d postgres_db -U postgres_user -c 'SELECT 1;'
-        env:
-          # postgress password is required; alternatively, you can run:
-          # `PGPASSWORD=postgres_password psql ...`
-          PGPASSWORD: postgres_password
+      - name: Start PostgreSQL on Ubuntu
+        run: |
+          sudo systemctl start postgresql.service
+          pg_isready
+      - name: Create scheduler user
+        run: |
+          sudo -u postgres psql --command="CREATE USER scheduler PASSWORD 'somestrong'" --command="\du"
+      - name: Create timetable database
+        run: |
+          sudo -u postgres createdb --owner=scheduler timetable
+          PGPASSWORD=somestrong psql --username=scheduler --host=localhost --list timetable
       - name: Run tests
         run: poetry run coverage run --branch -m pytest
       - name: Coverage report
