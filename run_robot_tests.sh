@@ -2,7 +2,7 @@
 
 # käynnistetään Flask-palvelin taustalle (huomaa & komennon lopussa)
 export FLASK_APP=src/app.py
-flask run &
+poetry run python3 -m flask run &
 # poetry run python3 src/app.py &
 
 
