@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<title>Lisää lukuvinkki</title>
+{% if session.username %}
+<h1>Lisää lukuvinkki</h1><br>
+<p>Lukuvinkin otsikko:<br>
+<textarea name="nimi" rows="1" cols="40"></textarea></p><br>
+<input type="submit" value="Tallenna">
+</form>
+
+<form action="/">
+<input type="submit" value="Peruuta" />
+</form>
+{% endif %}
+    

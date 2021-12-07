@@ -4,11 +4,11 @@
 <p>Tervetuloa {{ session.username }}</p>
 <a href="/logout">Kirjaudu ulos</a>
 {% else %}
-<form action="/login" method="POST" id="login-form">
+<form action="/login" method="POST">
 <p>Käyttäjänimi:<br>
 <input type="text" name="username" id="username"></p>
 <p>Salasana:<br>
 <input type="password" name="password" id="password"></p>
-<input type="submit" value="Kirjaudu", id="submit">
+<input type="submit" value="Kirjaudu">
 </form>
 {% endif %}
