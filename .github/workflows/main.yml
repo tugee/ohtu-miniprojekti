@@ -9,30 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # services:
-    #   # Label used to access the service container
-    #   postgres:
-    #     # Docker Hub image
-    #     image: postgres:latest
-    #     # Provide the password for postgres
-    #     env:
-    #       # optional (defaults to `postgres`)
-    #       POSTGRES_DB: postgres_db
-    #       # required
-    #       POSTGRES_PASSWORD: postgres_password
-    #       # optional (defaults to `5432`)
-    #       POSTGRES_PORT: 5432
-    #       # optional (defaults to `postgres`)
-    #       POSTGRES_USER: postgres_user
-    #     # Set health checks to wait until postgres has started
-    #     options: >-
-    #       --health-cmd pg_isready
-    #       --health-interval 10s
-    #       --health-timeout 5s
-    #       --health-retries 5
-    #     ports:
-    #       # Maps tcp port 5432 on service container to the host
-    #       - 5432:5432
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python 3.8
@@ -47,13 +23,13 @@ jobs:
         run: |
           sudo systemctl start postgresql.service
           pg_isready
-      - name: Create scheduler user
+      - name: Create tester user
         run: |
-          sudo -u postgres psql --command="CREATE USER scheduler PASSWORD 'somestrong'" --command="\du"
-      - name: Create timetable database
+          sudo -u postgres psql --command="CREATE USER tester PASSWORD 'somestrong'" --command="\du"
+      - name: Create testingtable database
         run: |
-          sudo -u postgres createdb --owner=scheduler timetable
-          PGPASSWORD=somestrong psql --username=scheduler --host=localhost --list timetable
+          sudo -u postgres createdb --owner=tester testingtable
+          PGPASSWORD=somestrong psql --username=tester --host=localhost --list testingtable
       - name: Run tests
         run: poetry run coverage run --branch -m pytest
       - name: Coverage report
@@ -64,4 +40,6 @@ jobs:
         run: poetry run pylint src
       - name: Run robot tests
         run: bash run_robot_tests.sh
+        env:
+          DATABASE_URL: postgresql://localhost:5432
 
