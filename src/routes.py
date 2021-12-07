@@ -8,6 +8,10 @@ from services.user_service import user_service
 def index():
     return render_template("index.html")
 
+@app.route("/ping")
+def ping():
+    return "pong"
+
 @app.route("/donewuser", methods=["POST"])
 def donewuser():
     username = request.form["username"]
