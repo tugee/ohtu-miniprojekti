@@ -33,9 +33,6 @@ jobs:
       - name: Create tables from schema
         run: |
           sudo -u postgres psql < src/schema.sql
-          sudo -u postgres
-          postgres=#\d
-          postgres=#\q
       - name: Run tests
         run: poetry run coverage run --branch -m pytest
       - name: Coverage report
