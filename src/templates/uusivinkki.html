@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <title>Lisää lukuvinkki</title>
 {% if session.username %}
-<h1>Lisää lukuvinkki</h1><br>
+<h1>Lisää lukuvinkki</h1>
 <form action="/lisaavinkki" method="POST">
-<p>Lukuvinkin otsikko:<br>
+<p>Lukuvinkin otsikko:
 <textarea name="nimi" rows="1" cols="40"></textarea></p><br>
-<textarea name="url" rows="1" cols="80"></textarea></p><br>
+<p>Linkki lukuvinkkiin:
+<textarea name="url" rows="2" cols="80"></textarea></p><br>
 <input type="submit" value="Tallenna">
 </form>
 
