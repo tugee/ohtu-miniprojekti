@@ -7,7 +7,8 @@ from services.vinkki_service import vinkki_service
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    vinkki_list = vinkki_service.search_vinkkis()
+    return render_template("index.html", vinkki_list=vinkki_list)
 
 @app.route("/ping")
 def ping():

@@ -7,8 +7,8 @@ class VinkkiService:
         self._vinkki_repository = vinkki_repository
 
     def search_vinkkis(self):
-        pass
-        #Tähän vinkkien hakeminen
+        list = self._vinkki_repository.find_by_vinkki()
+        return list
 
     def create_vinkki(self, nimi, url, tekija):
         self._vinkki_repository.create(nimi, url, tekija)

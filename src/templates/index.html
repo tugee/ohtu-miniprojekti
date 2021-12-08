@@ -6,11 +6,20 @@
 
 <p>Tervetuloa {{ session.username }}</p>
 <a href="/logout">Kirjaudu ulos</a><br>
-<a href="/uusivinkki">Lisää lukuvinkki</a>
+<a href="/uusivinkki">Lisää lukuvinkki</a><br>
 
 {% else %}
 
 <a href="/kirjautuminen">Kirjaudu sisään</a><br>
 <a href="/register">Rekisteröi uusi käyttäjä</a>
 
-{% endif %}
+{% endif %}<br>
+
+{% for vinkki in vinkki_list %}
+
+<p>Lukuvinkin nimi: {{ vinkki.nimi }}</p>
+<a href="{{ vinkki.url }}">Lukuvinkin linkki</a><br>
+<p>Lisännyt {{ vinkki.tekija }}</p>
+<p>____________</p>
+
+{% endfor %}

@@ -6,8 +6,9 @@ class VinkkiRepository:
         pass
 
     def find_by_vinkki(self):
-        pass
-        #Tähän lukuvinkkien hakemisen SQL-komennot
+        sqlcmnd = text("SELECT nimi, url, tekija FROM lukuvinkit")
+        result = db.session.execute(sqlcmnd)
+        return result.fetchall()
 
     def create(self, nimi, url, tekija):
         sql = text("INSERT INTO lukuvinkit (nimi, url, tekija) VALUES (:nimi, :url, :tekija)")
