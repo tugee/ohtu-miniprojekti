@@ -1,24 +1,22 @@
-from flask.wrappers import Request
+from flask import (
+    render_template, redirect, session, request
+)
 from app import app
-from db import db
-from flask import render_template, redirect, session, request
-from werkzeug.security import check_password_hash, generate_password_hash
+from services.user_service import user_service
 
 @app.route("/")
 def index():
-    result = db.session.execute("SELECT tunnus FROM kayttajat")
-    ekarivi = result.fetchone()
-    testi = ekarivi.tunnus
-    return render_template("index.html", testi=testi)
+    return render_template("index.html")
+
+@app.route("/ping")
+def ping():
+    return "pong"
 
 @app.route("/donewuser", methods=["POST"])
 def donewuser():
     username = request.form["username"]
     password = request.form["password"]
-    sql = "INSERT INTO kayttajat (tunnus,salasana) VALUES (:username,:password)"
-    hash_value = generate_password_hash(password)
-    db.session.execute(sql, {"tunnus": username, "salasana": hash_value})
-    db.session.commit()
+    user_service.create_user(username, password)
     return redirect("/kirjautuminen")
 
 @app.route("/register")
@@ -33,18 +31,12 @@ def kirjautuminen():
 def login():
     username = request.form["username"]
     password = request.form["password"]
-    komento = "SELECT tunnus, salasana FROM kayttajat WHERE tunnus=:tunnus"
-    hakutulos = db.session.execute(komento, {"tunnus":username})
-    kayttaja = hakutulos.fetchone()
-    if not kayttaja:
-        return redirect("/kirjautuminen")
-    else:
-        if password != kayttaja.salasana:
-            return redirect("/kirjautuminen")
-    session["username"] = username
+    kayttaja = user_service.check_credentials(username, password)
+    if kayttaja:
+        session["username"] = username
     return redirect("/kirjautuminen")
 
-@app.route("/logout")   
+@app.route("/logout")
 def logout():
     del session["username"]
     return redirect("/kirjautuminen")

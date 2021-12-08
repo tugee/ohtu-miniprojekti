@@ -9,7 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python 3.8
@@ -20,6 +19,20 @@ jobs:
         run: pip install poetry
       - name: Install dependencies
         run: poetry install
+      - name: Start PostgreSQL on Ubuntu
+        run: |
+          sudo systemctl start postgresql.service
+          pg_isready
+      - name: Create tester user
+        run: |
+          sudo -u postgres psql --command="CREATE USER tester PASSWORD 'T0lk13n'" --command="\du"
+      - name: Create testingtable database
+        run: |
+          sudo -u postgres createdb --owner=tester testingtable
+          PGPASSWORD=T0lk13n psql --username=tester --host=localhost --list testingtable
+      - name: Create tables from schema
+        run: |
+          sudo -u postgres psql < src/schema.sql
       - name: Run tests
         run: poetry run coverage run --branch -m pytest
       - name: Coverage report
@@ -30,4 +43,6 @@ jobs:
         run: poetry run pylint src
       - name: Run robot tests
         run: bash run_robot_tests.sh
+        env:
+          DATABASE_URL: postgresql://localhost/testingtable?user=tester&password=T0lk13n
 
