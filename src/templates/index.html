@@ -1,5 +1,16 @@
 <!DOCTYPE html>
 <title>Lukuvinkkikirjasto</title>
 <h1>Lukuvinkkikirjasto</h1>
-<a href="/kirjautuminen">Kirjaudu sisään</a>
+
+{% if session.username %}
+
+<p>Tervetuloa {{ session.username }}</p>
+<a href="/logout">Kirjaudu ulos</a><br>
+<a href="/uusivinkki">Lisää lukuvinkki</a>
+
+{% else %}
+
+<a href="/kirjautuminen">Kirjaudu sisään</a><br>
 <a href="/register">Rekisteröi uusi käyttäjä</a>
+
+{% endif %}

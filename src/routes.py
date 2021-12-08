@@ -3,6 +3,7 @@ from flask import (
 )
 from app import app
 from services.user_service import user_service
+from services.vinkki_service import vinkki_service
 
 @app.route("/")
 def index():
@@ -34,9 +35,21 @@ def login():
     kayttaja = user_service.check_credentials(username, password)
     if kayttaja:
         session["username"] = username
-    return redirect("/kirjautuminen")
+    return redirect("/")
 
 @app.route("/logout")
 def logout():
     del session["username"]
     return redirect("/kirjautuminen")
+
+@app.route("/uusivinkki")
+def uusivinkki():
+    return render_template("uusivinkki.html")
+
+@app.route("/lisaavinkki", methods=["POST"])
+def lisaavinkki():
+    nimi = request.form["nimi"]
+    url = request.form["url"]
+    tekija = session["username"]
+    vinkki_service.create_vinkki(nimi, url, tekija)
+    return redirect("/")
