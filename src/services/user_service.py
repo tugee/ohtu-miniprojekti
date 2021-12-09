@@ -1,5 +1,5 @@
 from werkzeug.security import (
-    # check_password_hash,
+    check_password_hash,
     generate_password_hash
 )
 from repositories.user_repository import (
@@ -12,9 +12,8 @@ class UserService:
 
     def check_credentials(self, username, password):
         kayttaja = self._user_repository.find_by_username(username)
-
-        # tänne tulee check_password_hash -tarkistus
-        if not kayttaja or password != kayttaja.salasana:
+        
+        if not kayttaja or not(check_password_hash(kayttaja.password,password)):
             return None
         return kayttaja
 
