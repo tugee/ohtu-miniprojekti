@@ -18,7 +18,10 @@
 {% for vinkki in vinkki_list %}
 
 <p>Lukuvinkin nimi: {{ vinkki.nimi }}</p>
-<a href="{{ vinkki.url }}">Lukuvinkin linkki</a><br>
+<a href="{{ vinkki.url }}">Lukuvinkin linkki</a>
+<a href="/delete/{{vinkki.id}}">piilota vinkki</a>
+<a href="/hide//vinkki.id}}">poista vinkki</a>
+<br>
 <p>Lisännyt {{ vinkki.tekija }}</p>
 <p>____________</p>
 

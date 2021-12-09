@@ -13,4 +13,10 @@ class VinkkiService:
     def create_vinkki(self, nimi, url, tekija):
         self._vinkki_repository.create(nimi, url, tekija)
 
+    def delete_vinkki(self, id):
+        self._vinkki_repository.delete(id)
+    
+    def hide_vinkki(self, id):
+        self._vinkki_repository.hide(id)
+
 vinkki_service = VinkkiService()
