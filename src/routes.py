@@ -65,3 +65,7 @@ def lisaavinkki():
     tekija = session["username"]
     vinkki_service.create_vinkki(nimi, url, tekija)
     return redirect("/")
+
+@app.route("/kayttajansivu")
+def kayttajansivu():
+    return render_template("kayttajansivu.html")
