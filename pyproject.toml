@@ -10,16 +10,21 @@ Flask = "^2.0.2"
 pylint = "^2.12.1"
 invoke = "^1.6.0"
 Flask-SQLAlchemy = "^2.5.1"
-psycopg2 = "^2.9.2"
 python-dotenv = "^0.19.2"
 gunicorn = "^20.1.0"
 robotframework-seleniumlibrary = "^5.1.3"
 requests = "^2.26.0"
+psycopg2-binary = {version = "^2.9.2", optional = true}
+psycopg2 = {version = "^2.9.2", optional = true}
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
 pylint = "^2.12.1"
 coverage = "^6.2"
+
+[tool.poetry.extras]
+production = ["psycopg2"]
+development = ["psycopg2-binary"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -38,6 +38,17 @@ def login():
         session["username"] = username
     return redirect("/")
 
+@app.route("/delete/<vinkki_nimi>")
+def delete(vinkki_nimi):
+    vinkki_service.delete_vinkki(vinkki_nimi)
+    return redirect("/")
+
+app.route("/hide/<vinkki_nimi>")
+def hide(vinkki_nimi):
+    vinkki_service.hide_vinkki(vinkki_nimi)
+    return redirect("/")
+
+
 @app.route("/logout")
 def logout():
     del session["username"]
@@ -54,3 +65,7 @@ def lisaavinkki():
     tekija = session["username"]
     vinkki_service.create_vinkki(nimi, url, tekija)
     return redirect("/")
+
+@app.route("/kayttajansivu")
+def kayttajansivu():
+    return render_template("kayttajansivu.html")
