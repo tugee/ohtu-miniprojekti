@@ -16,13 +16,13 @@ class VinkkiRepository:
         db.session.commit()
 
     def delete(self, nimi):
-        sql = text("DELETE FROM lukuvinkit where nimi="(nimi))
-        db.session.execute(sql, nimi)
+        sql = text("DELETE FROM lukuvinkit WHERE nimi=:nimi")
+        db.session.execute(sql, {"nimi":nimi})
         db.session.commit()
     
     def hide(self, nimi):
-        sql = text("UPDATE lukuvinkit piilotettu=true where nimi="(nimi))
-        db.session.execute(sql, nimi)
+        sql = text("UPDATE lukuvinkit piilotettu=true WHERE nimi=:nimi")
+        db.session.execute(sql, {"nimi":nimi})
         db.session.commit()
     
 

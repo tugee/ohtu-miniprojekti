@@ -1,23 +1,23 @@
 *** Settings ***
 Resource  resource.robot
-Resource  login.robot
-Suite Setup  Open And Configure Browser
+Suite Setup  Execute Setup
 Suite Teardown  Close Browser
 Test Setup  Go To Main Page
+Test Teardown  Execute Logout
 
 *** Variables ***
 ${NEWVINKKI}  http://${SERVER}/uusivinkki
 ${LOGOUT}  http://${SERVER}/logout
 
 *** Test Cases ***
-Page Has Correct Text
+Main Page Has Correct Text
     Page Should Contain  Lukuvinkkikirjasto
 
 Lukuvinkkis Are Listed Correctly When Logged In 
     Execute Login
     Add New Vinkki
     Go To Main Page
-    Page Should Contain  vinkinnimi
+    Page Should Contain  Taru sormusten herrasta
 
 Lukuvinkkis Are Listed Correctly When Logged Out 
     Execute Login
@@ -25,13 +25,32 @@ Lukuvinkkis Are Listed Correctly When Logged Out
     Go To Main Page
     Execute Logout
     Go To Main Page
-    Page Should Contain  vinkinnimi
+    Page Should Contain  Taru sormusten herrasta
+
+Lukuvinkki Link Works
+    Execute Login
+    Add New Vinkki
+    Go To Main Page
+    Click Link  Taru sormusten herrasta
+    Title Should Be  Taru sormusten herrasta – Wikipedia
 
 *** Keywords ***
+Execute Setup
+    Open And Configure Browser
+    Create User
+
+Create User
+    Go To Register Page
+    Set Username  tolkien123
+    Set Password  tolkien123
+    Submit Credentials
+    Login Page Should Be Open
+    Go To Main Page
+
 Execute Login
     Go To Login Page
-    Set Username  Jonsku
-    Set Password  8F6CwIE4
+    Set Username  tolkien123
+    Set Password  tolkien123
     Submit Credentials
 
 Set Nimi
@@ -47,8 +66,8 @@ Go to New Vinkki Page
 
 Add New Vinkki
     Go To New Vinkki Page
-    Set Nimi  vinkinnimi
-    Set Url  linkki
+    Set Nimi  Taru sormusten herrasta
+    Set Url  https://fi.wikipedia.org/wiki/Taru_sormusten_herrasta
     Submit Credentials
 
 Execute Logout
