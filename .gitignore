@@ -1,5 +1,6 @@
 .env
 __pycache__/
+.coverage
 selenium-screenshot-*.png
 output.xml
 log.html
