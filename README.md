@@ -6,3 +6,4 @@
 [Definition of Done](https://github.com/tugee/ohtu-miniprojekti/blob/main/dokumentaatio/DefinitionOfDone.md)  
 [Työaikakirjanpito](https://github.com/tugee/ohtu-miniprojekti/blob/main/dokumentaatio/Tyoaikakirjanpito.md)  
 [Testikattavuus](https://app.codecov.io/gh/tugee/ohtu-miniprojekti/)
+
