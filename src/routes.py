@@ -14,6 +14,7 @@ def index():
 def ping():
     return "pong"
 
+# consider changing "donewuser" to something more descriptive
 @app.route("/donewuser", methods=["POST"])
 def donewuser():
     username = request.form["username"]
