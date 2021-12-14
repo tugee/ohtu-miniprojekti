@@ -3,4 +3,22 @@
 <h1>Omat lukuvinkit</h1>
 <p>Omat lukuvinkit</p>
 
+{% if session.username %}
+
+{% for vinkki in own_vinkki_list %}
+
+<a href="{{ vinkki.url }}">{{ vinkki.nimi }}</a>
+<br>
+<a href="/hide/{{ vinkki.nimi }}">Poista vinkki</a>
+<br>
+<p>__________</p>
+
+{% endfor %}
+
+{% else %}
+
+<p>Et ole kirjautunut sisään</p>
+
+{% endif %}
+
 <a href="/">Takaisin</a><br>

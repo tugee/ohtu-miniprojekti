@@ -9,6 +9,10 @@ class VinkkiService:
     def search_vinkkis(self):
         list = self._vinkki_repository.find_by_vinkki()
         return list
+    
+    def search_own_vinkkis(self, tekija):
+        list = self._vinkki_repository.find_by_user(tekija)
+        return list
 
     def create_vinkki(self, nimi, url, tekija):
         self._vinkki_repository.create(nimi, url, tekija)
