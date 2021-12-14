@@ -68,7 +68,9 @@ def lisaavinkki():
 
 @app.route("/kayttajansivu")
 def kayttajansivu():
-    return render_template("kayttajansivu.html")
+    tekija = session["username"]
+    own_vinkki_list = vinkki_service.search_own_vinkkis(tekija)
+    return render_template("kayttajansivu.html", own_vinkki_list=own_vinkki_list)
 
 @app.route("/mark-read/<int:id>", methods=["GET"])
 def merkitse_luetuksi(id):
