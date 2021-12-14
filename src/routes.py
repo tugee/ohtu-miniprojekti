@@ -71,3 +71,17 @@ def kayttajansivu():
     tekija = session["username"]
     own_vinkki_list = vinkki_service.search_own_vinkkis(tekija)
     return render_template("kayttajansivu.html", own_vinkki_list=own_vinkki_list)
+
+@app.route("/mark-read/<int:id>", methods=["GET"])
+def merkitse_luetuksi(id):
+    if not session.get("username"):
+        return redirect("/kirjautuminen")
+    vinkki_service.set_read_vinkki(id)
+    return redirect("/")
+
+@app.route("/mark-unread/<int:id>", methods=["GET"])
+def merkitse_lukemattomaksi(id):
+    if not session.get("username"):
+        return redirect("/kirjautuminen")
+    vinkki_service.set_unread_vinkki(id)
+    return redirect("/")
