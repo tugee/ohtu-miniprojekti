@@ -77,11 +77,11 @@ def merkitse_luetuksi(id):
     if not session.get("username"):
         return redirect("/kirjautuminen")
     vinkki_service.set_read_vinkki(id)
-    return redirect("/")
+    return redirect("/kayttajansivu")
 
 @app.route("/mark-unread/<int:id>", methods=["GET"])
 def merkitse_lukemattomaksi(id):
     if not session.get("username"):
         return redirect("/kirjautuminen")
     vinkki_service.set_unread_vinkki(id)
-    return redirect("/")
+    return redirect("/kayttajansivu")

@@ -6,12 +6,12 @@ class VinkkiRepository:
         pass
 
     def find_by_vinkki(self):
-        sqlcmnd = text("SELECT id, nimi, url, tekija, luettu, paivays FROM lukuvinkit WHERE piilotettu=FALSE")
+        sqlcmnd = text("SELECT id, nimi, url, tekija FROM lukuvinkit WHERE piilotettu=FALSE")
         result = db.session.execute(sqlcmnd)
         return result.fetchall()
     
     def find_by_user(self, tekija):
-        cmnd = text("SELECT nimi, url FROM lukuvinkit WHERE piilotettu=FALSE AND tekija=:tekija")
+        cmnd = text("SELECT id, nimi, url, luettu, paivays FROM lukuvinkit WHERE piilotettu=FALSE AND tekija=:tekija")
         result = db.session.execute(cmnd, {"tekija":tekija})
         return result.fetchall()
 

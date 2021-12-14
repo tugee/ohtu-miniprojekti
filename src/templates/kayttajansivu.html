@@ -7,7 +7,15 @@
 
 {% for vinkki in own_vinkki_list %}
 
-<a href="{{ vinkki.url }}">{{ vinkki.nimi }}</a>
+<a href="{{ vinkki.url }}"><h2>{{ vinkki.nimi }}</h2></a>
+
+{% if vinkki.luettu %}
+<p>Luettu {{ vinkki.paivays.strftime("%d.%m.%Y") }}</p>
+<a href="/mark-unread/{{ vinkki.id }}">Merkitse lukemattomaksi</a>
+{% else %}
+<a href="/mark-read/{{ vinkki.id }}">Merkitse luetuksi</a>
+{% endif %}
+
 <br>
 <a href="/hide/{{ vinkki.nimi }}">Poista vinkki</a>
 <br>

@@ -19,19 +19,6 @@
 {% for vinkki in vinkki_list %}
 
 <a href="{{ vinkki.url }}"><h2>{{ vinkki.nimi }}</h2></a>
-
-{% if session.username %}
-{% if vinkki.luettu %}
-<p>Luettu {{ vinkki.paivays.strftime("%d.%m.%Y") }}</p>
-<a href="/mark-unread/{{ vinkki.id }}">Merkitse lukemattomaksi</a>
-{% else %}
-<a href="/mark-read/{{ vinkki.id }}">Merkitse luetuksi</a>
-{% endif %}
-<br>
-<a href="/hide/{{ vinkki.nimi }}">piilota vinkki</a>
-<a href="/delete/{{ vinkki.nimi }}">poista vinkki</a>
-{% endif %}
-<br>
 <p>Lisännyt {{ vinkki.tekija }}</p>
 <p>____________</p>
 
