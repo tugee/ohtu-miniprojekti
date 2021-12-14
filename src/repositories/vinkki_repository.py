@@ -6,7 +6,7 @@ class VinkkiRepository:
         pass
 
     def find_by_vinkki(self):
-        sqlcmnd = text("SELECT nimi, url, tekija FROM lukuvinkit WHERE piilotettu=FALSE")
+        sqlcmnd = text("SELECT id, nimi, url, tekija, luettu, paivays FROM lukuvinkit WHERE piilotettu=FALSE")
         result = db.session.execute(sqlcmnd)
         return result.fetchall()
     
@@ -16,7 +16,10 @@ class VinkkiRepository:
         return result.fetchall()
 
     def create(self, nimi, url, tekija):
-        sql = text("INSERT INTO lukuvinkit (nimi, url, tekija, piilotettu) VALUES (:nimi, :url, :tekija, FALSE)")
+        sql = text("""
+        INSERT INTO lukuvinkit (nimi, url, tekija, luettu, paivays, piilotettu)
+        VALUES (:nimi, :url, :tekija, FALSE, null, FALSE)
+        """)
         db.session.execute(sql, {"nimi":nimi, "url":url, "tekija":tekija})
         db.session.commit()
 
