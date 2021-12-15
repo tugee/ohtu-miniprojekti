@@ -19,10 +19,6 @@
 {% for vinkki in vinkki_list %}
 
 <a href="{{ vinkki.url }}"><h2>{{ vinkki.nimi }}</h2></a>
-<br>
-<a href="/hide/{{ vinkki.nimi }}">piilota vinkki</a>
-<a href="/delete/{{ vinkki.nimi }}">poista vinkki</a>
-<br>
 <p>Lisännyt {{ vinkki.tekija }}</p>
 <p>____________</p>
 
