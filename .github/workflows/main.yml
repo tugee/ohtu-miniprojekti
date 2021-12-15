@@ -33,8 +33,8 @@ jobs:
       - name: Create tables from schema
         run: |
           sudo -u postgres psql testingtable < src/schema.sql
-          sudo -u postgres psql --command="GRANT ALL ON kayttajat TO tester;"
-          sudo -u postgres psql --command="GRANT ALL ON lukuvinkit TO tester;"
+          sudo -u postgres psql testingtable --command="GRANT ALL ON kayttajat TO tester;"
+          sudo -u postgres psql testingtable --command="GRANT ALL ON lukuvinkit TO tester;"
       - name: Run tests
         run: poetry run coverage run --branch -m pytest
       - name: Coverage report
