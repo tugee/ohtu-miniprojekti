@@ -23,16 +23,16 @@ jobs:
         run: |
           sudo systemctl start postgresql.service
           pg_isready
-      # - name: Create tester user
-      #   run: |
-      #     sudo -u postgres psql --command="CREATE USER tester PASSWORD 'T0lk13n'" --command="\du"
-      # - name: Create testingtable database
-      #   run: |
-      #     sudo -u postgres createdb --owner=tester testingtable
-      #     PGPASSWORD=T0lk13n psql --username=tester --host=localhost --list testingtable
+      - name: Create tester user
+        run: |
+          sudo -u postgres psql --command="CREATE USER tester PASSWORD 'T0lk13n'" --command="\du"
+      - name: Create testingtable database
+        run: |
+          sudo -u postgres createdb --owner=tester testingtable
+          PGPASSWORD=T0lk13n psql --username=tester --host=localhost --list testingtable
       - name: Create tables from schema
         run: |
-          sudo -u postgres psql < src/schema.sql
+          sudo -u postgres psql testingtable < src/schema.sql
       - name: Run tests
         run: poetry run coverage run --branch -m pytest
       - name: Coverage report
@@ -44,5 +44,5 @@ jobs:
       - name: Run robot tests
         run: bash run_robot_tests.sh
         env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost/postgres
+          DATABASE_URL: postgresql://tester:T0lk13n@localhost/testingtable
 
