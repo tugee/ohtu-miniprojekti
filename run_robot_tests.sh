@@ -23,3 +23,4 @@ function clean_up {
 
 # suoritetaan clean_up-funktio, kun prosessi lopettaa suorituksen
 trap clean_up EXIT
+
