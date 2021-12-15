@@ -38,9 +38,9 @@ def login():
         session["username"] = username
     return redirect("/")
 
-app.route("/hide/int:id")
-def hide(id):
-    vinkki_service.hide_vinkki(id)
+app.route("/hide/int:vinkki_id")
+def hide(vinkki_id):
+    vinkki_service.hide_vinkki(vinkki_id)
     return redirect("/")
 
 
@@ -67,16 +67,16 @@ def kayttajansivu():
     own_vinkki_list = vinkki_service.search_own_vinkkis(tekija)
     return render_template("kayttajansivu.html", own_vinkki_list=own_vinkki_list)
 
-@app.route("/mark-read/<int:id>", methods=["GET"])
-def merkitse_luetuksi(id):
+@app.route("/mark-read/<int:vinkki_id>", methods=["GET"])
+def merkitse_luetuksi(vinkki_id):
     if not session.get("username"):
         return redirect("/kirjautuminen")
-    vinkki_service.set_read_vinkki(id)
+    vinkki_service.set_read_vinkki(vinkki_id)
     return redirect("/kayttajansivu")
 
-@app.route("/mark-unread/<int:id>", methods=["GET"])
-def merkitse_lukemattomaksi(id):
+@app.route("/mark-unread/<int:vinkki_id>", methods=["GET"])
+def merkitse_lukemattomaksi(vinkki_id):
     if not session.get("username"):
         return redirect("/kirjautuminen")
-    vinkki_service.set_unread_vinkki(id)
+    vinkki_service.set_unread_vinkki(vinkki_id)
     return redirect("/kayttajansivu")
