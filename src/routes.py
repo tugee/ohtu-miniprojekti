@@ -38,14 +38,9 @@ def login():
         session["username"] = username
     return redirect("/")
 
-@app.route("/delete/<vinkki_nimi>")
-def delete(vinkki_nimi):
-    vinkki_service.delete_vinkki(vinkki_nimi)
-    return redirect("/")
-
-app.route("/hide/<vinkki_nimi>")
-def hide(vinkki_nimi):
-    vinkki_service.hide_vinkki(vinkki_nimi)
+app.route("/hide/int:id")
+def hide(id):
+    vinkki_service.hide_vinkki(id)
     return redirect("/")
 
 
