@@ -6,7 +6,7 @@
 {% if session.username %}
 
 {% for vinkki in own_vinkki_list %}
-{% if vinkki.piilotettu == false %}
+{% if not vinkki.piilotettu %}
 
 <a href="{{ vinkki.url }}"><h2>{{ vinkki.nimi }}</h2></a>
 
@@ -19,6 +19,7 @@
 
 <br>
 <a href="/hide/{{ vinkki.id }}">Poista vinkki</a>
+{% endif %}
 <br>
 <p>__________</p>
 
