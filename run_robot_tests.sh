@@ -16,10 +16,20 @@ done
 poetry run robot src/tests
 # poetry run robot src/tests
 
-# pysäytetään Flask-palvelin portissa 5000
-function clean_up {
-  kill $(lsof -t -i:5000)
-}
+# UUSI TOTEUTUS
+status=$?
 
-# suoritetaan clean_up-funktio, kun prosessi lopettaa suorituksen
-trap clean_up EXIT
+# pysäytetään Flask-palvelin portissa 5000
+kill $(lsof -t -i:5000)
+
+exit $status
+
+
+# VANHA TOTEUTUS
+# # pysäytetään Flask-palvelin portissa 5000
+# function clean_up {
+#   kill $(lsof -t -i:5000)
+# }
+
+# # suoritetaan clean_up-funktio, kun prosessi lopettaa suorituksen
+# trap clean_up EXIT
