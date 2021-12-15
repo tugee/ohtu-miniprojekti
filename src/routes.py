@@ -38,10 +38,10 @@ def login():
         session["username"] = username
     return redirect("/")
 
-app.route("/hide/<int:id>")
+app.route("/hide/<int:id>", methods=["GET"])
 def hide(id):
     vinkki_service.hide_vinkki(id)
-    return redirect("/")
+    return redirect("/kirjautuminen")
 
 
 @app.route("/logout")

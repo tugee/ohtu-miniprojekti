@@ -24,7 +24,7 @@ class VinkkiRepository:
         db.session.commit()
 
     def hide(self, id):
-        sql = text("UPDATE lukuvinkit piilotettu=true WHERE id=:id")
+        sql = text("UPDATE lukuvinkit SET piilotettu=true WHERE id=:id")
         db.session.execute(sql, {"id":id})
         db.session.commit()
 
