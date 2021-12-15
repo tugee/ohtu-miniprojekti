@@ -36,6 +36,7 @@ jobs:
           sudo -u postgres psql testingtable --command="GRANT ALL ON kayttajat TO tester;"
           sudo -u postgres psql testingtable --command="GRANT ALL ON kayttajat_id_seq TO tester;"
           sudo -u postgres psql testingtable --command="GRANT ALL ON lukuvinkit TO tester;"
+          sudo -u postgres psql testingtable --command="GRANT ALL ON lukuvinkit_id_seq TO tester;"
       - name: Run tests
         run: poetry run coverage run --branch -m pytest
       - name: Coverage report
