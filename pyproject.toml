@@ -21,6 +21,7 @@ psycopg2 = {version = "^2.9.2", optional = true}
 pytest = "^6.2.5"
 pylint = "^2.12.1"
 coverage = "^6.2"
+psycopg2-binary = "^2.9.2"
 
 [tool.poetry.extras]
 production = ["psycopg2"]
