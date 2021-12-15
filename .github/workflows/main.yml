@@ -48,4 +48,5 @@ jobs:
         run: bash run_robot_tests.sh
         env:
           DATABASE_URL: postgresql://tester:T0lk13n@localhost/testingtable
+          SECRET_KEY: 2c2a9c35bbe47d5b04c5b3cc1c978630
 
