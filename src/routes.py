@@ -41,8 +41,7 @@ def login():
 app.route("/hide/<int:id>", methods=["GET"])
 def hide(id):
     vinkki_service.hide_vinkki(id)
-    return redirect("/kirjautuminen")
-
+    return redirect("/kayttajansivu")
 
 @app.route("/logout")
 def logout():
