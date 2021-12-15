@@ -14,14 +14,3 @@ Login With Correct Credentials
 *** Keywords ***
 Login Should Succeed
     Main Page Should Be Open
-
-Submit Credentials
-    Submit Form
-
-Set Username
-    [Arguments]  ${username}
-    Input Text  username  ${username}
-
-Set Password
-    [Arguments]  ${password}
-    Input Password  password  ${password}

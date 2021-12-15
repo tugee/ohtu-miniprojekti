@@ -9,4 +9,32 @@
 <h1>Omat lukuvinkit</h1>
 <p>Omat lukuvinkit</p>
 
-<a href="/index">Takaisin</a><br>
+{% if session.username %}
+
+{% for vinkki in own_vinkki_list %}
+{% if not vinkki.piilotettu %}
+
+<a href="{{ vinkki.url }}"><h2>{{ vinkki.nimi }}</h2></a>
+
+{% if vinkki.luettu %}
+<p>Luettu {{ vinkki.paivays.strftime("%d.%m.%Y") }}</p>
+<a href="/mark-unread/{{ vinkki.id }}">Merkitse lukemattomaksi</a>
+{% else %}
+<a href="/mark-read/{{ vinkki.id }}">Merkitse luetuksi</a>
+{% endif %}
+
+<br>
+<a href="/hide/{{ vinkki.id }}">Poista vinkki</a>
+{% endif %}
+<br>
+<p>__________</p>
+
+{% endfor %}
+
+{% else %}
+
+<p>Et ole kirjautunut sisään</p>
+
+{% endif %}
+
+<a href="/">Takaisin</a><br>

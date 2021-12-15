@@ -9,5 +9,7 @@ CREATE TABLE lukuvinkit (
     nimi TEXT,
     url VARCHAR(2083),
     tekija TEXT references kayttajat(tunnus),
+    luettu BOOLEAN NOT NULL,
+    paivays DATE,
     piilotettu BOOLEAN
 );
