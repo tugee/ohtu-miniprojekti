@@ -7,27 +7,24 @@ class VinkkiService:
         self._vinkki_repository = vinkki_repository
 
     def search_vinkkis(self):
-        list = self._vinkki_repository.find_by_vinkki()
-        return list
-    
+        vinkit = self._vinkki_repository.find_by_vinkki()
+        return vinkit
+
     def search_own_vinkkis(self, tekija):
-        list = self._vinkki_repository.find_by_user(tekija)
-        return list
+        vinkit = self._vinkki_repository.find_by_user(tekija)
+        return vinkit
 
     def create_vinkki(self, nimi, url, tekija):
         self._vinkki_repository.create(nimi, url, tekija)
 
-    def delete_vinkki(self, nimi):
-        self._vinkki_repository.delete(nimi)
-
     def hide_vinkki(self, nimi):
         self._vinkki_repository.hide(nimi)
 
-    def set_read_vinkki(self, id):
-        self._vinkki_repository.set_read(id)
-        self._vinkki_repository.set_read_date(id)
+    def set_read_vinkki(self, vinkki_id):
+        self._vinkki_repository.set_read(vinkki_id)
+        self._vinkki_repository.set_read_date(vinkki_id)
 
-    def set_unread_vinkki(self, id):
-        self._vinkki_repository.set_unread(id)
+    def set_unread_vinkki(self, vinkki_id):
+        self._vinkki_repository.set_unread(vinkki_id)
 
 vinkki_service = VinkkiService()

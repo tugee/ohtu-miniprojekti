@@ -14,7 +14,7 @@ class UserService:
 
     def check_credentials(self, username, password):
         kayttaja = self._user_repository.find_by_username(username)
-        if not kayttaja or not(check_password_hash(kayttaja[1],password)):
+        if not kayttaja or not check_password_hash(kayttaja[1],password):
             return None
         return kayttaja
 
