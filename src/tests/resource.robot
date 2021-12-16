@@ -8,6 +8,7 @@ ${DELAY}  0 seconds
 ${HOME URL}  http://${SERVER}
 ${LOGIN URL}  http://${SERVER}/kirjautuminen
 ${REGISTER URL}  http://${SERVER}/register
+${USER URL}  http://${SERVER}/kayttajansivu
 
 *** Keywords ***
 Open And Configure Browser
@@ -32,6 +33,9 @@ Go To Login Page
 
 Go To Register Page
     Go To  ${REGISTER URL}
+
+Go To User Page
+    Go To  ${USER URL}
 
 Set Username
     [Arguments]  ${username}
