@@ -1,28 +1,36 @@
 <!DOCTYPE html>
+<body onload="toggle_hidden()"></body>
 <title>Omat lukuvinkit</title>
 <h1>Omat lukuvinkit</h1>
 <p>Omat lukuvinkit</p>
 
 {% if session.username %}
 
+<button id="vinkki_toggle" onclick="toggle_hidden()">Piilota luetut</button>
+
 {% for vinkki in own_vinkki_list %}
 {% if not vinkki.piilotettu %}
 
-<a href="{{ vinkki.url }}"><h2>{{ vinkki.nimi }}</h2></a>
-
 {% if vinkki.luettu %}
-<p>Luettu {{ vinkki.paivays.strftime("%d.%m.%Y") }}</p>
-<a href="/mark-unread/{{ vinkki.id }}">Merkitse lukemattomaksi</a>
-{% else %}
-<a href="/mark-read/{{ vinkki.id }}">Merkitse luetuksi</a>
-{% endif %}
+<div class="luetut_vinkit">
+    <a href="{{ vinkki.url }}"><h2>{{ vinkki.nimi }}</h2></a>
+    <p>Luettu {{ vinkki.paivays.strftime("%d.%m.%Y") }}</p>
+    <a href="/mark-unread/{{ vinkki.id }}">Merkitse lukemattomaksi</a>
+    <br>
+    <a href="/hide/{{ vinkki.id }}">Poista vinkki</a>
+    <br>
+    <p>__________</p>
+</div>
 
+{% else %}
+<a href="{{ vinkki.url }}"><h2>{{ vinkki.nimi }}</h2></a>
+<a href="/mark-read/{{ vinkki.id }}">Merkitse luetuksi</a>
 <br>
 <a href="/hide/{{ vinkki.id }}">Poista vinkki</a>
-{% endif %}
 <br>
 <p>__________</p>
-
+{% endif %}
+{% endif %}
 {% endfor %}
 
 {% else %}
@@ -32,3 +40,21 @@
 {% endif %}
 
 <a href="/">Takaisin</a><br>
+
+
+<script>
+function toggle_hidden() {
+    const elems = document.getElementsByClassName("luetut_vinkit");
+    var btn = document.getElementById("vinkki_toggle");
+    for (const e of elems) {
+    e.style.display = e.style.display === 'none' ? 'block' : 'none';
+    }
+    
+    if (btn.innerText=="Näytä luetut") {
+        btn.innerText = "Piilota luetut";
+    }
+    else {
+        btn.innerText = "Näytä luetut";
+    }
+}
+</script>
