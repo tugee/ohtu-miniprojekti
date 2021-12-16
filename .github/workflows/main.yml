@@ -32,7 +32,11 @@ jobs:
           PGPASSWORD=T0lk13n psql --username=tester --host=localhost --list testingtable
       - name: Create tables from schema
         run: |
-          sudo -u postgres psql < src/schema.sql
+          sudo -u postgres psql testingtable < src/schema.sql
+          sudo -u postgres psql testingtable --command="GRANT ALL ON kayttajat TO tester;"
+          sudo -u postgres psql testingtable --command="GRANT ALL ON kayttajat_id_seq TO tester;"
+          sudo -u postgres psql testingtable --command="GRANT ALL ON lukuvinkit TO tester;"
+          sudo -u postgres psql testingtable --command="GRANT ALL ON lukuvinkit_id_seq TO tester;"
       - name: Run tests
         run: poetry run coverage run --branch -m pytest
       - name: Coverage report
@@ -44,5 +48,6 @@ jobs:
       - name: Run robot tests
         run: bash run_robot_tests.sh
         env:
-          DATABASE_URL: postgresql://localhost/testingtable?user=tester&password=T0lk13n
+          DATABASE_URL: postgresql://tester:T0lk13n@localhost/testingtable
+          SECRET_KEY: 2c2a9c35bbe47d5b04c5b3cc1c978630
 
