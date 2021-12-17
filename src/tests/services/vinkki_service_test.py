@@ -54,188 +54,132 @@ class FakeVinkkiRepository:
         vinkki = self.vinkkis[id]
         vinkki["luettu"] = False
 
-class TestVinkkiService(unittest.TestCase):
-    def setUp(self):
-        pass
-
+class TestVinkkiServiceEmpty(unittest.TestCase):
     def test_tietokanta_on_aluksi_tyhja(self):
         fake_repo = FakeVinkkiRepository()
         service = VinkkiService(fake_repo)
         testlist = service.search_vinkkis()
         self.assertTrue(len(testlist)==0)
+class TestVinkkiService(unittest.TestCase):
+    def setUp(self):
+        self.fake_repo = FakeVinkkiRepository()
+        self.service = VinkkiService(self.fake_repo)
+        self.service.create_vinkki("vinkki1", "url1", "testitekija")
 
     def test_tietokanta_ei_ole_lisaamisen_jalkeen_tyhja_1(self):
-        fake_repo = FakeVinkkiRepository()
-        service = VinkkiService(fake_repo)
-        service.create_vinkki("vinkki1", "url1", "testitekija")
-        testlist = service.search_vinkkis()
+        testlist = self.service.search_vinkkis()
         self.assertTrue(len(testlist)>0)
 
-    def test_tietokanta_ei_ole_lisaamisen_jalkeen_tyhja_2(self):
-        fake_repo = FakeVinkkiRepository()
-        service = VinkkiService(fake_repo)
-        service.create_vinkki("vinkki1", "url1", "testitekija")
-        service.create_vinkki("vinkki2", "url2", "testitekija")
-        service.create_vinkki("vinkki3", "url3", "toinentekija")
-        testlist = service.search_vinkkis()
+    def test_tietokantaan_voi_lisata_useamman_vinkin(self):
+        self.service.create_vinkki("vinkki2", "url2", "testitekija")
+        testlist = self.service.search_vinkkis()
         self.assertTrue(len(testlist)>0)
     
     def test_haetaan_vain_omat_vinkit_1(self):
-        fake_repo = FakeVinkkiRepository()
-        service = VinkkiService(fake_repo)
-        service.create_vinkki("vinkki1", "url1", "testitekija")
-        service.create_vinkki("vinkki2", "url2", "testitekija")
-        service.create_vinkki("vinkki3", "url3", "toinentekija")
-        testlist = service.search_own_vinkkis("testitekija")
-        self.assertTrue(len(testlist)>0)
+        self.service.create_vinkki("vinkki3", "url3", "toinentekija")
+        testlist = self.service.search_own_vinkkis("testitekija")
+        self.assertTrue(len(testlist)==1)
     
-    def test_haetaan_vain_omat_vinkit_2(self):
-        fake_repo = FakeVinkkiRepository()
-        service = VinkkiService(fake_repo)
-        service.create_vinkki("vinkki1", "url1", "testitekija")
-        service.create_vinkki("vinkki2", "url2", "testitekija")
-        service.create_vinkki("vinkki3", "url3", "toinentekija")
-        testlist = service.search_own_vinkkis("jokutekija")
+    def test_haetaan_vain_omat_vinkit_paulauttaa_tyhjan_jos_ei_loydy(self):
+        testlist = self.service.search_own_vinkkis("jokutekija")
         self.assertTrue(len(testlist)==0)
     
     def test_poistaminen_toimii_oikein_1(self):
-        fake_repo = FakeVinkkiRepository()
-        service = VinkkiService(fake_repo)
-        service.create_vinkki("vinkki1", "url1", "testitekija")
-        service.hide_vinkki("0")
-        testlist = service.search_vinkkis()
+        self.service.hide_vinkki("0")
+        testlist = self.service.search_vinkkis()
         self.assertTrue(len(testlist)==0)
     
     def test_poistaminen_toimii_oikein_2(self):
-        fake_repo = FakeVinkkiRepository()
-        service = VinkkiService(fake_repo)
-        service.create_vinkki("vinkki1", "url1", "testitekija")
-        service.create_vinkki("vinkki2", "url2", "testitekija")
-        service.create_vinkki("vinkki3", "url3", "toinentekija")
-        service.hide_vinkki("0")
-        service.hide_vinkki("1")
-        service.hide_vinkki("2")
-        testlist = service.search_vinkkis()
+        self.service.create_vinkki("vinkki2", "url2", "testitekija")
+        self.service.create_vinkki("vinkki3", "url3", "toinentekija")
+        self.service.hide_vinkki("0")
+        self.service.hide_vinkki("1")
+        self.service.hide_vinkki("2")
+        testlist = self.service.search_vinkkis()
         self.assertTrue(len(testlist)==0)
     
     def test_poistaminen_toimii_oikein_2(self):
-        fake_repo = FakeVinkkiRepository()
-        service = VinkkiService(fake_repo)
-        service.create_vinkki("vinkki1", "url1", "testitekija")
-        service.create_vinkki("vinkki2", "url2", "testitekija")
-        service.create_vinkki("vinkki3", "url3", "toinentekija")
-        service.hide_vinkki("0")
-        service.hide_vinkki("1")
-        testlist = service.search_vinkkis()
-        self.assertTrue(len(testlist)>0)
+        self.service.create_vinkki("vinkki2", "url2", "testitekija")
+        self.service.create_vinkki("vinkki3", "url3", "toinentekija")
+        self.service.hide_vinkki("0")
+        self.service.hide_vinkki("1")
+        testlist = self.service.search_vinkkis()
+        self.assertTrue(len(testlist)==1)
     
     def test_poistaminen_toimii_oikein_3(self):
-        fake_repo = FakeVinkkiRepository()
-        service = VinkkiService(fake_repo)
-        service.create_vinkki("vinkki1", "url1", "testitekija")
-        service.create_vinkki("vinkki2", "url2", "testitekija")
-        service.create_vinkki("vinkki3", "url3", "toinentekija")
-        service.hide_vinkki("0")
-        testlist = service.search_own_vinkkis("testitekija")
-        self.assertTrue(len(testlist)>0)
+        self.service.create_vinkki("vinkki2", "url2", "testitekija")
+        self.service.create_vinkki("vinkki3", "url3", "toinentekija")
+        self.service.hide_vinkki("0")
+        testlist = self.service.search_own_vinkkis("testitekija")
+        self.assertTrue(len(testlist)==1)
     
     def test_poistaminen_toimii_oikein_4(self):
-        fake_repo = FakeVinkkiRepository()
-        service = VinkkiService(fake_repo)
-        service.create_vinkki("vinkki1", "url1", "testitekija")
-        service.create_vinkki("vinkki2", "url2", "testitekija")
-        service.create_vinkki("vinkki3", "url3", "toinentekija")
-        service.hide_vinkki("0")
-        service.hide_vinkki("1")
-        testlist = service.search_own_vinkkis("testitekija")
+        self.service.create_vinkki("vinkki2", "url2", "testitekija")
+        self.service.create_vinkki("vinkki3", "url3", "toinentekija")
+        self.service.hide_vinkki("0")
+        self.service.hide_vinkki("1")
+        testlist = self.service.search_own_vinkkis("testitekija")
         self.assertTrue(len(testlist)==0)
 
-    def test_poistaminen_toimii_oikein_5(self):
-        fake_repo = FakeVinkkiRepository()
-        service = VinkkiService(fake_repo)
-        service.create_vinkki("vinkki1", "url1", "testitekija")
-        service.create_vinkki("vinkki2", "url2", "testitekija")
-        service.create_vinkki("vinkki3", "url3", "toinentekija")
-        service.hide_vinkki("0")
-        service.hide_vinkki("1")
-        testlist = service.search_own_vinkkis("toinentekija")
-        self.assertTrue(len(testlist)>0)
+    def test_omien_vinkkien_poistaminen_ei_poista_toisten_vinkkeja(self):
+        self.service.create_vinkki("vinkki2", "url2", "testitekija")
+        self.service.create_vinkki("vinkki3", "url3", "toinentekija")
+        self.service.hide_vinkki("0")
+        self.service.hide_vinkki("1")
+        testlist = self.service.search_own_vinkkis("toinentekija")
+        self.assertTrue(len(testlist)==1)
     
-    def test_poistaminen_toimii_oikein_5(self):
-        fake_repo = FakeVinkkiRepository()
-        service = VinkkiService(fake_repo)
-        service.create_vinkki("vinkki1", "url1", "testitekija")
-        service.create_vinkki("vinkki2", "url2", "testitekija")
-        service.create_vinkki("vinkki3", "url3", "toinentekija")
-        service.hide_vinkki("0")
-        service.hide_vinkki("1")
-        testlist = service.search_own_vinkkis("jokutekija")
+    def test_poistaminen_ei_lisaa_uudelle_kayttajalle_vinkkeja(self):
+        self.service.create_vinkki("vinkki2", "url2", "testitekija")
+        self.service.create_vinkki("vinkki3", "url3", "toinentekija")
+        self.service.hide_vinkki("0")
+        self.service.hide_vinkki("1")
+        testlist = self.service.search_own_vinkkis("jokutekija")
         self.assertTrue(len(testlist)==0)
     
     def test_poistaminen_toimii_oikein_6(self):
-        fake_repo = FakeVinkkiRepository()
-        service = VinkkiService(fake_repo)
-        service.create_vinkki("vinkki1", "url1", "testitekija")
-        service.create_vinkki("vinkki2", "url2", "testitekija")
-        service.create_vinkki("vinkki3", "url3", "toinentekija")
-        service.hide_vinkki("3")
-        service.hide_vinkki("4")
-        testlist = service.search_vinkkis()
+        self.service.create_vinkki("vinkki2", "url2", "testitekija")
+        self.service.create_vinkki("vinkki3", "url3", "toinentekija")
+        self.service.hide_vinkki("3")
+        self.service.hide_vinkki("4")
+        testlist = self.service.search_vinkkis()
         self.assertTrue(len(testlist)>0)
     
     def test_paivays_toimii_1(self):
-        fake_repo = FakeVinkkiRepository()
-        service = VinkkiService(fake_repo)
-        service.create_vinkki("vinkki1", "url1", "testitekija")
-        service.set_read_vinkki("0")
-        vinkki = fake_repo.vinkkis["0"]
+        self.service.set_read_vinkki("0")
+        vinkki = self.fake_repo.vinkkis["0"]
         self.assertTrue(len(vinkki["paivays"])>0)
     
     def test_paivays_toimii_2(self):
-        fake_repo = FakeVinkkiRepository()
-        service = VinkkiService(fake_repo)
-        service.create_vinkki("vinkki1", "url1", "testitekija")
-        service.create_vinkki("vinkki2", "url2", "testitekija")
-        service.create_vinkki("vinkki3", "url3", "toinentekija")
-        service.set_read_vinkki("0")
-        vinkki = fake_repo.vinkkis["1"]
+        self.service.create_vinkki("vinkki2", "url2", "testitekija")
+        self.service.create_vinkki("vinkki3", "url3", "toinentekija")
+        self.service.set_read_vinkki("0")
+        vinkki = self.fake_repo.vinkkis["1"]
         self.assertTrue(vinkki["paivays"]==None)
     
     def test_luetuksi_merkitseminen_toimii_1(self):
-        fake_repo = FakeVinkkiRepository()
-        service = VinkkiService(fake_repo)
-        service.create_vinkki("vinkki1", "url1", "testitekija")
-        service.set_read_vinkki("0")
-        vinkki = fake_repo.vinkkis["0"]
+        self.service.set_read_vinkki("0")
+        vinkki = self.fake_repo.vinkkis["0"]
         self.assertTrue(vinkki["luettu"]==True)
     
     def test_luetuksi_merkitseminen_toimii_2(self):
-        fake_repo = FakeVinkkiRepository()
-        service = VinkkiService(fake_repo)
-        service.create_vinkki("vinkki1", "url1", "testitekija")
-        service.create_vinkki("vinkki2", "url2", "testitekija")
-        service.create_vinkki("vinkki3", "url3", "toinentekija")
-        service.set_read_vinkki("0")
-        vinkki = fake_repo.vinkkis["1"]
+        self.service.create_vinkki("vinkki2", "url2", "testitekija")
+        self.service.create_vinkki("vinkki3", "url3", "toinentekija")
+        self.service.set_read_vinkki("0")
+        vinkki = self.fake_repo.vinkkis["1"]
         self.assertTrue(vinkki["luettu"]==False)
     
     def test_lukemattomaksi_merkitseminen_toimii_1(self):
-        fake_repo = FakeVinkkiRepository()
-        service = VinkkiService(fake_repo)
-        service.create_vinkki("vinkki1", "url1", "testitekija")
-        service.set_read_vinkki("0")
-        service.set_unread_vinkki("0")
-        vinkki = fake_repo.vinkkis["0"]
+        self.service.set_read_vinkki("0")
+        self.service.set_unread_vinkki("0")
+        vinkki = self.fake_repo.vinkkis["0"]
         self.assertTrue(vinkki["luettu"]==False)
     
     def test_lukemattomaksi_merkitseminen_toimii_2(self):
-        fake_repo = FakeVinkkiRepository()
-        service = VinkkiService(fake_repo)
-        service.create_vinkki("vinkki1", "url1", "testitekija")
-        service.create_vinkki("vinkki2", "url2", "testitekija")
-        service.create_vinkki("vinkki3", "url3", "toinentekija")
-        service.set_read_vinkki("0")
-        service.set_read_vinkki("1")
-        service.set_unread_vinkki("0")
-        vinkki = fake_repo.vinkkis["1"]
+        self.service.create_vinkki("vinkki2", "url2", "testitekija")
+        self.service.create_vinkki("vinkki3", "url3", "toinentekija")
+        self.service.set_read_vinkki("0")
+        self.service.set_read_vinkki("1")
+        self.service.set_unread_vinkki("0")
+        vinkki = self.fake_repo.vinkkis["1"]
         self.assertTrue(vinkki["luettu"]==True)

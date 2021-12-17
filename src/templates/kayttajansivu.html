@@ -1,34 +1,46 @@
+
 <!DOCTYPE html>
+
 <body onload="toggle_hidden()"></body>
+{% extends "ulkoasu.html" %}
+{% block head %}
 <title>Omat lukuvinkit</title>
+{% endblock head %}
+
+{% block content %}
 <h1>Omat lukuvinkit</h1>
-<p>Omat lukuvinkit</p>
 
 {% if session.username %}
 
 <button id="vinkki_toggle" onclick="toggle_hidden()">Piilota luetut</button>
 
+
 {% for vinkki in own_vinkki_list %}
+
+
 {% if not vinkki.piilotettu %}
 
 {% if vinkki.luettu %}
+
 <div class="luetut_vinkit">
-    <a href="{{ vinkki.url }}"><h2>{{ vinkki.nimi }}</h2></a>
+    <div class="card border-dark mb-3" style="width: 40rem; margin-top: 2rem;">
+    <a href="{{ vinkki.url }}"><h5 class="card-header">{{ vinkki.nimi }}</h5></a>
+    <div class = "card-body">
     <p>Luettu {{ vinkki.paivays.strftime("%d.%m.%Y") }}</p>
     <a href="/mark-unread/{{ vinkki.id }}">Merkitse lukemattomaksi</a>
-    <br>
     <a href="/hide/{{ vinkki.id }}">Poista vinkki</a>
-    <br>
-    <p>__________</p>
+    </div>
+    </div>
 </div>
 
 {% else %}
-<a href="{{ vinkki.url }}"><h2>{{ vinkki.nimi }}</h2></a>
+<div class="card border-dark mb-3" style="width: 40rem; margin-top: 2rem;">
+<a href="{{ vinkki.url }}"><h5 class ="card-header">{{ vinkki.nimi }}</h5></a>
+<div class ="card-body">
 <a href="/mark-read/{{ vinkki.id }}">Merkitse luetuksi</a>
-<br>
 <a href="/hide/{{ vinkki.id }}">Poista vinkki</a>
-<br>
-<p>__________</p>
+</div>
+</div>
 {% endif %}
 {% endif %}
 {% endfor %}
@@ -39,22 +51,22 @@
 
 {% endif %}
 
-<a href="/">Takaisin</a><br>
-
-
 <script>
-function toggle_hidden() {
-    const elems = document.getElementsByClassName("luetut_vinkit");
-    var btn = document.getElementById("vinkki_toggle");
-    for (const e of elems) {
-    e.style.display = e.style.display === 'none' ? 'block' : 'none';
+    function toggle_hidden() {
+        const elems = document.getElementsByClassName("luetut_vinkit");
+        var btn = document.getElementById("vinkki_toggle");
+        for (const e of elems) {
+        e.style.display = e.style.display === 'none' ? 'block' : 'none';
+        }
+        
+        if (btn.innerText=="Näytä luetut") {
+            btn.innerText = "Piilota luetut";
+        }
+        else {
+            btn.innerText = "Näytä luetut";
+        }
     }
-    
-    if (btn.innerText=="Näytä luetut") {
-        btn.innerText = "Piilota luetut";
-    }
-    else {
-        btn.innerText = "Näytä luetut";
-    }
-}
 </script>
+{% endblock content %}
+
+

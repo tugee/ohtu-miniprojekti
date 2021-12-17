@@ -1,25 +1,17 @@
 <!DOCTYPE html>
-<title>Lukuvinkkikirjasto</title>
-<h1>Lukuvinkkikirjasto</h1>
+{% extends "ulkoasu.html" %}
+{% block head %}<title>Lukuvinkkikirjasto</title>{% endblock head %}
 
-{% if session.username %}
-
-<p>Tervetuloa {{ session.username }}</p>
-<a href="/logout">Kirjaudu ulos</a><br>
-<a href="/uusivinkki">Lisää lukuvinkki</a><br>
-<a href="/kayttajansivu">Omat lukuvinkit</a><br>
-
-{% else %}
-
-<a href="/kirjautuminen">Kirjaudu sisään</a><br>
-<a href="/register">Rekisteröi uusi käyttäjä</a>
-
-{% endif %}<br>
+{% block content %}
 
 {% for vinkki in vinkki_list %}
-
-<a href="{{ vinkki.url }}"><h2>{{ vinkki.nimi }}</h2></a>
-<p>Lisännyt {{ vinkki.tekija }}</p>
-<p>____________</p>
-
+<div style="width: 30rem; margin-top: 2rem;">
+    <div class="card border-dark mb-3">
+      <a href="{{ vinkki.url }}"><h5 class="card-header">{{ vinkki.nimi }}</h5></a>
+      <div class = "card-body">
+      <p>Lisännyt {{ vinkki.tekija }}.</p>
+      </div>
+    </div>
+</div>
 {% endfor %}
+{% endblock %}

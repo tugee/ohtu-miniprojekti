@@ -1,12 +1,22 @@
 <!DOCTYPE html>
-<title>Lukuvinkkikirjasto rekisteröityminen</title>
-<div>
-    <form action="/donewuser" method="POST">
-        <p>Rekisteröidy uudeksi käyttäjäksi</p>
-        <p>Tunnus:<br>
-            <input type="text" name="username" id="username" minlength="3" required></p>
-            <p>Salasana:<br>
-            <input type="password" name="password" id="password" minlength="3" required></p>
-            <input type="submit" value="Tee Käyttäjä">
+{% block head %}<title>Lukuvinkkikirjasto rekisteröityminen</title>{% endblock %}
+
+{% extends "ulkoasu.html" %}
+
+{% block content %}
+
+<div class="card border-dark mb-3" style="width: 40rem; margin-top: 2rem;">
+    <h5 class="card-header">Rekisteröidy uudeksi käyttäjäksi</h5>
+    <form action="/donewuser" class ="card-body" method="POST">
+            <div class ="mb-3">
+            <label for="username" class="form-label">Käyttäjänimi</label>
+            <input type="text" class="form-control" name="username" id="username" minlength="3" required>
+            </div>
+            <div class="mb-3">
+            <label for="password" class="form-label">Salasana</label>
+            <input type="password" class="form-control" name="password" id="password" minlength="3" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Tee käyttäjä</button>
         </form>
 </div>
+{% endblock content %}

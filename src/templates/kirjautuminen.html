@@ -1,16 +1,31 @@
 <!DOCTYPE html>
-<title>Lukuvinkkikirjasto kirjautuminen</title>
+
+{% block head %}<title>Lukuvinkkikirjasto kirjautuminen</title>{% endblock head %}
+
+
+{% extends "ulkoasu.html" %}
+{% block content %}
+<div class="card border-dark mb-3" style="width: 40rem; margin-top: 2rem;">
+
 {% if session.username %}
-<p>Tervetuloa {{ session.username }}</p>
-<a href="/logout">Kirjaudu ulos</a>
+<h5 class = "card-header">Tervetuloa {{ session.username }}</h5>
+<form action="/logout">
+<button class="btn btn-primary" href="/logout">Kirjaudu ulos</button>
+</form>
 {% else %}
-<form action="/login" method="POST">
-<p>Käyttäjänimi:</p>
-<br>
-<input type="text" name="username" id="username"></p>
-<p>Salasana:</p>
-<br>
-<input type="password" name="password" id="password"></p>
-<input type="submit" value="Kirjaudu">
+<h5 class = "card-header">Kirjaudu sisään</h5>
+<form action="/login" class ="card-body" method="POST">
+<div class="mb-3">
+<label for="username" class="form-label">Käyttäjänimi</label>
+<input type="text" class="form-control" name="username" id="username">
+</div>
+<div class="mb-3">
+<label for="password" class="form-label">Salasana</label>
+<input type="password" class="form-control" name="password" id="password">
+</div>
+<button type="submit" class="btn btn-primary">Kirjaudu</button>
 </form>
 {% endif %}
+</div>
+
+{% endblock content %}   
