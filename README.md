@@ -5,6 +5,8 @@
 
 [Product backlog](https://docs.google.com/spreadsheets/d/1DaAu1GK6VygtDuKFK3jqlerErILbyhlJ23k_6WFqFwE/)
 
+[Loppuraportti](https://docs.google.com/document/d/1GT0G0URIMygE7wWwXmaMj2VYrFED58qhBPAba0OWtfg/edit?usp=sharing)
+
 [Definition of Done](https://github.com/tugee/ohtu-miniprojekti/blob/main/dokumentaatio/DefinitionOfDone.md)  
 [Työaikakirjanpito](https://github.com/tugee/ohtu-miniprojekti/blob/main/dokumentaatio/Tyoaikakirjanpito.md)  
 [Testikattavuus](https://app.codecov.io/gh/tugee/ohtu-miniprojekti/)
