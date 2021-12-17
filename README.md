@@ -1,4 +1,5 @@
 # Team Tolkien - Ohjelmistotuotanto Miniprojekti
+[![codecov](https://codecov.io/gh/tugee/ohtu-miniprojekti/branch/main/graph/badge.svg?token=7HHI5465YF)](https://codecov.io/gh/tugee/ohtu-miniprojekti)
 
 [Lukuvinkkikirjasto](https://tolkien-lukuvinkkikirjasto.herokuapp.com/)
 
