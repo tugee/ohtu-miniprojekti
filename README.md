@@ -10,3 +10,5 @@
 [Definition of Done](https://github.com/tugee/ohtu-miniprojekti/blob/main/dokumentaatio/DefinitionOfDone.md)  
 [Työaikakirjanpito](https://github.com/tugee/ohtu-miniprojekti/blob/main/dokumentaatio/Tyoaikakirjanpito.md)  
 [Testikattavuus](https://app.codecov.io/gh/tugee/ohtu-miniprojekti/)
+
+This project is licensed under the terms of the MIT license
